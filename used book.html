@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+
+
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+    <title>二手书商城</title>
+</head>
+<body>
+    <header>
+        <h1 aria-label="二手书商城">二手书商城</h1>
+    </header>
+    <nav>
+        <a href="#">首页</a>
+        <a href="#">图书分类</a>
+        <a href="#">关于我们</a>
+        <input type="search" placeholder="搜索书籍" />
+        <a href="#">登录</a>
+        <a href="#">注册</a>
+        <a href="#"><img src="cart-icon.png" alt="购物车" /></a>
+    </nav>
+    <div id="book-list">
+        <div class="book">
+            <img src="book1.jpg" alt="书名1">
+            <h3>书名1</h3>
+            <p>价格：¥100</p>
+        </div>
+        <div class="book">
+            <img src="book2.jpg" alt="书名2">
+            <h3>书名2</h3>
+            <p>价格：¥150</p>
+        </div>
+        <!-- 更多书籍 -->
+    </div>
+    <form action="qrcode.html" method="post" onsubmit="return handlePaymentSelection();">
+        <label for="pay">选择支付方式：</label>
+        <select id="pay" name="pay">
+            <option value="alipay">支付宝</option>
+            <option value="wechat">微信支付</option>
+        </select>
+        <input type="submit" value="跳转">
+    </form>
+    <form action="/submit-comment" method="post">
+        <label for="comment">发表评论：</label>
+        <textarea id="comment" name="comment"></textarea>
+        <input type="hidden" name="return_url" value="usedbook.html">
+        <input type="submit" value="提交评论">
+    </form>
+    <div class="book-details">
+        <!-- 其他书籍信息 -->
+        <div class="comments">
+            <h3>用户评价</h3>
+            <ul>
+                <li>用户 1：这本书非常好，推荐购买！</li>
+                <li>用户 2：内容丰富，值得一读！</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
