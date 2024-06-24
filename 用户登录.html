@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js"></script>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cdn.pixabay.com/photo/2019/12/18/13/56/glasses-4704055_1280.jpg'); /* 将 'your-image.jpg' 替换为你的图片路径 */
+            background-size: cover; /* 图片覆盖整个页面 */
+            background-repeat: no-repeat; /* 防止图片重复 */
+            background-attachment: fixed; /* 固定背景图片，使其不随页面滚动而移动 */
+        }
+
+     .container {
+            max-width: 400px;
+            margin: 210px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+    .login-container h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+     .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        header h1 {
+            font-size: 36px; 
+            margin-left: 50px; 
+            color: #000000;
+        }
+    </style>
+    <title>用户登录</title>
+</head>
+
+<body>
+    <header>
+        <h1 aria-label="二手书商城">二手书商城</h1>
+    </header>
+    <div class="container">
+        <div class="login-container">
+            <h2>用户登录</h2>
+            <form action="login.php" method="post">
+                <label for="username">用户名：</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">密码：</label>
+                <input type="password" id="password" name="password" required>
+                <input type="submit" value="登录">
+            </form>
+            <div class="error-message"></div>
+        </div>
+    </div>
+
+    <script>
+        // 假设 login.php 成功登录后返回的响应中包含 "success"
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // 阻止表单默认提交行为
+
+            // 获取用户名和密码输入框的值
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // 发送表单数据到服务器
+            var formData = new FormData();
+            formData.append('username', username);
+            formData.append('password', password);
+
+            fetch('login.php', {
+                    method: 'POST',
+                    body: formData
+                })
+          .then(response => response.text())
+          .then(data => {
+                    if (data ==='success') {
+                        // 登录成功，跳转到首页
+                        window.location.href = 'file:///D:/%E6%A1%8C%E9%9D%A2/%E7%BD%91%E7%AB%99/%E7%BD%91%E9%A1%B5%E9%A6%96%E9%A1%B5.html#';
+                    } else {
+                        // 登录失败，显示错误消息
+                        document.querySelector('.error-message').innerHTML = '登录失败，请检查用户名和密码。';
+                    }
+                })
+          .catch(error => {
+                    console.error('发生错误:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
