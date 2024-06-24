@@ -1,11 +1,9 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
 
-// �������ݿ�����
+// 创建数据库连接
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -15,29 +13,19 @@ const connection = mysql.createConnection({
 
 app.post('/submit-comment', (req, res) => {
     const comment = req.body.comment;
-    const sql = 'INSERT INTO comments (comment_content) VALUES (?)';
-    connection.query(sql, [comment], (err, result) => {
-        if (err) {
-            console.error(err);
-            res.sendStatus(500);
-        } else {
-            res.redirect('/comments');
-        }
-    });
-});
+    const returnUrl = req.body.return_url;
 
-app.get('/comments', (req, res) => {
-    const sql = 'SELECT * FROM comments';
-    connection.query(sql, (err, rows) => {
+    // 执行插入评论到数据库的操作
+    connection.query('INSERT INTO comments (content) VALUES (?)', [comment], (err, result) => {
         if (err) {
             console.error(err);
-            res.sendStatus(500);
+            res.status(500).send('评论提交失败');
         } else {
-            res.send(rows.map(row => `<p>${row.comment_content}</p>`));
+            res.redirect(returnUrl);
         }
     });
 });
 
 app.listen(3000, () => {
-    console.log('Server started on port 3000');
+    console.log('服务器启动，监听 3000 端口');
 });
